@@ -27,7 +27,12 @@ private:
 	void LoadRPakList( const QString& rpakToSelect = {} );
 	void LoadRPakListFromDir();
 
+	void OnRPakSelected( const QListWidgetItem* item );
+	void ResetCurrentRPak() const;
+	void SaveCurrentRPak() const;
+
 	void AddRPak();
+	void RemoveCurrentRPak();
 
 	void ClearRPakSettings() const;
 

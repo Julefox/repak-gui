@@ -13,6 +13,12 @@ RePakGui::RePakGui( QWidget* parent ) : QMainWindow( parent ), ui( new Ui::RePak
 	this->LoadRPakListFromDir();
 
 	connect( ui->addRPakButton, &QPushButton::clicked, this, &RePakGui::AddRPak );
+	connect( ui->removeRPakButton, &QPushButton::clicked, this, &RePakGui::RemoveCurrentRPak );
+
+	connect( ui->rpakListWidget, &QListWidget::currentItemChanged, this, &RePakGui::OnRPakSelected );
+
+	connect( ui->resetRPakButton, &QPushButton::clicked, this, &RePakGui::ResetCurrentRPak );
+	connect( ui->saveRPakButton, &QPushButton::clicked, this, &RePakGui::SaveCurrentRPak );
 }
 
 RePakGui::~RePakGui()
@@ -45,6 +51,70 @@ void RePakGui::LoadRPakListFromDir()
 
 		ui->rpakListWidget->addItem( rpakData->RPakName );
 	}
+}
+
+void RePakGui::OnRPakSelected( const QListWidgetItem* item )
+{
+	if ( !item )
+	{
+		this->ClearRPakSettings();
+		return;
+	}
+
+	const QString rpakName = item->text();
+
+	for ( auto* rpakData : this->rpakList )
+	{
+		if ( rpakData->RPakName != rpakName )
+			continue;
+
+		this->currentRPakData = rpakData;
+		break;
+	}
+
+	if ( !this->currentRPakData )
+	{
+		this->ClearRPakSettings();
+		return;
+	}
+
+	this->ResetCurrentRPak();
+}
+
+void RePakGui::ResetCurrentRPak() const
+{
+	if ( !this->currentRPakData )
+	{
+		this->ClearRPakSettings();
+		return;
+	}
+
+	for ( const QString& gameType : Utils::GameTypes.keys() )
+	{
+		if ( Utils::GameTypes[ gameType ] == this->currentRPakData->RPakVersion )
+		{
+			for ( int i = 0; i < ui->gameTypeComboBox->count(); i++ )
+			{
+				if ( ui->gameTypeComboBox->itemText( i ) != gameType )
+					continue;
+
+				ui->gameTypeComboBox->setCurrentIndex( i );
+				break;
+			}
+			break;
+		}
+	}
+
+	ui->keepDevOnlyCheckBox->setChecked( this->currentRPakData->KeepDevOnly );
+}
+
+void RePakGui::SaveCurrentRPak() const
+{
+	if ( !this->currentRPakData )
+		return;
+
+	this->currentRPakData->RPakVersion = Utils::GameTypes[ ui->gameTypeComboBox->currentText() ];
+	this->currentRPakData->KeepDevOnly = ui->keepDevOnlyCheckBox->isChecked();
 }
 
 void RePakGui::LoadRPakList( const QString& rpakToSelect )
@@ -82,6 +152,8 @@ void RePakGui::AddRPak()
 	if ( rpakName.isEmpty() )
 		return;
 
+	ui->rpakNameLineEdit->clear();
+
 	for ( const auto* rpakData : this->rpakList )
 	{
 		if ( rpakData->RPakName != rpakName )
@@ -96,6 +168,19 @@ void RePakGui::AddRPak()
 	this->rpakList.append( rpakData );
 
 	this->LoadRPakList( rpakName );
+}
+
+void RePakGui::RemoveCurrentRPak()
+{
+	if ( !this->currentRPakData )
+		return;
+
+	if ( QMessageBox::question( this, "Remove RPak", "Are you sure you want to remove this RPak?" ) != QMessageBox::Yes )
+		return;
+
+	this->rpakList.removeOne( this->currentRPakData );
+	delete this->currentRPakData;
+	this->LoadRPakList();
 }
 
 void RePakGui::ClearRPakSettings() const {}

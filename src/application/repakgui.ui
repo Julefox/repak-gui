@@ -95,7 +95,7 @@
         </widget>
        </item>
        <item row="0" column="5">
-        <widget class="QPushButton" name="pushButton_3">
+        <widget class="QPushButton" name="removeRPakButton">
          <property name="minimumSize">
           <size>
            <width>120</width>
@@ -315,7 +315,7 @@
        </spacer>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton">
+       <widget class="QPushButton" name="resetRPakButton">
         <property name="minimumSize">
          <size>
           <width>120</width>
@@ -328,7 +328,7 @@
        </widget>
       </item>
       <item>
-       <widget class="QPushButton" name="pushButton_2">
+       <widget class="QPushButton" name="saveRPakButton">
         <property name="minimumSize">
          <size>
           <width>120</width>
