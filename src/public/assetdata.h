@@ -1,5 +1,17 @@
 ﻿#pragma once
 
+enum class eAssetType : int
+{
+	UNKNOWN,
+	TEXTURE,
+	MODEL,
+	UI_IMAGE,
+	PATCH,
+	DATATABLE,
+	MATERIAL,
+	ANIMATION
+};
+
 class AssetData
 {
 public:
