@@ -109,6 +109,8 @@
     </QtMoc>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="public\assetdata.h" />
+    <ClInclude Include="public\rpakdata.h" />
     <QtRcc Include="application\repakgui.qrc" />
     <QtUic Include="application\repakgui.ui" />
     <QtMoc Include="application\repakgui.h" />
