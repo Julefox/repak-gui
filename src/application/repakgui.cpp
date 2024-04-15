@@ -7,8 +7,17 @@ RePakGui::RePakGui( QWidget* parent ) : QMainWindow( parent ), ui( new Ui::RePak
 {
 	ui->setupUi( this );
 
+	ui->gameTypeComboBox->clear();
 	for ( const QString& gameType : Utils::GameTypes.keys() )
 		ui->gameTypeComboBox->addItem( gameType );
+
+	ui->gameTypeComboBox->setCurrentIndex( 0 );
+
+	ui->assetComboBox->clear();
+	for ( const QString& assetType : Utils::AssetTypes.keys() )
+		ui->assetComboBox->addItem( assetType );
+
+	ui->assetComboBox->setCurrentIndex( 0 );
 
 	this->LoadRPakListFromDir();
 
@@ -142,7 +151,7 @@ void RePakGui::LoadRPakList( const QString& rpakToSelect )
 		ui->rpakListWidget->addItem( rpakData->RPakName );
 	}
 	ui->rpakListWidget->blockSignals( false );
-	emit ui->rpakListWidget->currentRowChanged( ui->rpakListWidget->currentRow() );
+	emit ui->rpakListWidget->currentItemChanged( ui->rpakListWidget->currentItem(), nullptr );
 }
 
 void RePakGui::AddRPak()
