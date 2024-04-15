@@ -17,7 +17,12 @@ namespace Utils
 	inline QMap < QString, int > GameTypes = { { "Titanfall 2", 7 }, { "Apex Legends", 8 } };
 
 	inline QMap < QString, eAssetType > AssetTypes = {
-		{ "Textures", eAssetType::TEXTURE }, { "Models", eAssetType::MODEL }, { "UI Images", eAssetType::UI_IMAGE }, { "Patches", eAssetType::PATCH }, { "Data Tables", eAssetType::DATATABLE },
-		{ "Materials", eAssetType::MATERIAL }, { "Animations", eAssetType::ANIMATION }
+		{ "Textures", eAssetType::TEXTURE },
+		{ "Models", eAssetType::MODEL },
+		{ "UI Images", eAssetType::UI_IMAGE },
+		{ "Patches", eAssetType::PATCH },
+		{ "Datatables", eAssetType::DATATABLE },
+		{ "Materials", eAssetType::MATERIAL },
+		{ "Animations", eAssetType::ANIMATION }
 	};
 }

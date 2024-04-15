@@ -167,6 +167,9 @@
            <height>16777215</height>
           </size>
          </property>
+         <property name="itemAlignment">
+          <set>Qt::AlignmentFlag::AlignCenter</set>
+         </property>
         </widget>
        </item>
       </layout>

@@ -2,6 +2,7 @@
 
 #include <QWidget>
 #include "ui_itemwidget.h"
+#include "../public/assetdata.h"
 
 QT_BEGIN_NAMESPACE namespace Ui
 {
@@ -16,4 +17,6 @@ QT_END_NAMESPACE class ItemWidget final : public QWidget
 
 private:
 	Ui::ItemWidgetClass* ui;
+
+	AssetData* assetData = nullptr;
 };
