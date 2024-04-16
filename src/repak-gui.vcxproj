@@ -110,11 +110,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="public\rpakdata.cpp" />
+    <ClCompile Include="widgets\assetwindow\materialwindow.cpp" />
     <ClCompile Include="widgets\itemwidget.cpp" />
     <ClInclude Include="public\assetdata.h" />
     <ClInclude Include="public\rpakdata.h" />
     <ClInclude Include="public\textureslot.h" />
     <ClInclude Include="utils\utils.h" />
+    <QtMoc Include="widgets\assetwindow\materialwindow.h" />
     <QtMoc Include="widgets\itemwidget.h" />
     <QtRcc Include="application\repakgui.qrc" />
     <QtUic Include="application\repakgui.ui" />
@@ -122,6 +124,7 @@
     <ClCompile Include="application\repakgui.cpp" />
     <ClCompile Include="main.cpp" />
     <None Include="application\repak-gui.ico" />
+    <QtUic Include="widgets\assetwindow\materialwindow.ui" />
     <QtUic Include="widgets\itemwidget.ui" />
     <ResourceCompile Include="application\repak-gui.rc" />
     <ClInclude Include="pch.h" />

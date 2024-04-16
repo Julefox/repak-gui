@@ -58,6 +58,9 @@
     <ClCompile Include="public\rpakdata.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="widgets\assetwindow\materialwindow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="public\rpakdata.h">
@@ -77,9 +80,15 @@
     <QtMoc Include="widgets\itemwidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="widgets\assetwindow\materialwindow.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="widgets\itemwidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="widgets\assetwindow\materialwindow.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>

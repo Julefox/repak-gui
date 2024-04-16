@@ -3,6 +3,7 @@
 
 #include "../utils/utils.h"
 #include "../widgets/itemwidget.h"
+#include "../widgets/assetwindow/materialwindow.h"
 
 RePakGui::RePakGui( QWidget* parent ) : QMainWindow( parent ), ui( new Ui::RePakGuiClass() )
 {
@@ -91,7 +92,7 @@ void RePakGui::OnRPakSelected( const QListWidgetItem* item )
 	this->ResetCurrentRPak();
 }
 
-void RePakGui::ResetCurrentRPak() const
+void RePakGui::ResetCurrentRPak()
 {
 	if ( !this->currentRPakData )
 	{
@@ -201,7 +202,12 @@ void RePakGui::ResetCurrentRPak() const
 				this->ResetCurrentRPak(); // Refresh Interface
 			}
 		} );
-		// TODO: Connect MaterialWindow
+		connect( materialWidget->GetEditButton(), &QPushButton::clicked, this, [ this, materialData ]
+		{
+			auto* materialWindow = new MaterialWindow( materialData, this );
+			connect( materialWindow, &MaterialWindow::OnWindowClose, this, &RePakGui::ResetCurrentRPak );
+			materialWindow->show();
+		} );
 		ui->assetLayout->addWidget( materialWidget );
 	}
 
@@ -297,7 +303,7 @@ void RePakGui::RemoveCurrentRPak()
 	this->LoadRPakList();
 }
 
-void RePakGui::AddAsset() const
+void RePakGui::AddAsset()
 {
 	if ( !this->currentRPakData )
 	{
