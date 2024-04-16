@@ -7,12 +7,14 @@ public:
 	explicit AssetData( const eAssetType assetType = eAssetType::UNTYPED ) : assetType( assetType ) {}
 	virtual ~AssetData() = default;
 
-	[[nodiscard]] virtual QVariant ToVariant() const
+	[[nodiscard]] QVariantMap ToVariantMap() const
 	{
 		QVariantMap map;
-		map[ "path" ] = Path;
+		map[ "path" ] = this->Path;
 		return map;
 	}
+
+	[[nodiscard]] virtual QVariant ToVariant() const { return this->ToVariantMap(); }
 
 	[[nodiscard]] static AssetData* FromVariant( const QVariant& variant )
 	{
@@ -28,6 +30,8 @@ public:
 
 	[[nodiscard]] eAssetType GetAssetType() const { return this->assetType; }
 
+	[[nodiscard]] static AssetData* FromInheritance( AssetData* assetData ) { return assetData; }
+
 	QString Path;
 
 private:
@@ -40,6 +44,12 @@ class ModelData final : public AssetData
 {
 public:
 	ModelData() : AssetData( eAssetType::MODEL ) {}
+
+	[[nodiscard]] QVariant ToVariant() const override
+	{
+		QVariantMap map = this->ToVariantMap();
+		return map;
+	}
 
 	[[nodiscard]] static ModelData* FromVariant( const QVariant& variant )
 	{
@@ -59,6 +69,12 @@ class UiImageData final : public AssetData
 public:
 	UiImageData() : AssetData( eAssetType::UI_IMAGE ) {}
 
+	[[nodiscard]] QVariant ToVariant() const override
+	{
+		QVariantMap map = this->ToVariantMap();
+		return map;
+	}
+
 	[[nodiscard]] static UiImageData* FromVariant( const QVariant& variant )
 	{
 		auto* data      = new UiImageData();
@@ -76,6 +92,12 @@ class PatchData final : public AssetData
 {
 public:
 	PatchData() : AssetData( eAssetType::PATCH ) {}
+
+	[[nodiscard]] QVariant ToVariant() const override
+	{
+		QVariantMap map = this->ToVariantMap();
+		return map;
+	}
 
 	[[nodiscard]] static PatchData* FromVariant( const QVariant& variant )
 	{
@@ -95,6 +117,12 @@ class DataTableData final : public AssetData
 public:
 	DataTableData() : AssetData( eAssetType::DATATABLE ) {}
 
+	[[nodiscard]] QVariant ToVariant() const override
+	{
+		QVariantMap map = this->ToVariantMap();
+		return map;
+	}
+
 	[[nodiscard]] static DataTableData* FromVariant( const QVariant& variant )
 	{
 		auto* data      = new DataTableData();
@@ -113,6 +141,12 @@ class MaterialData final : public AssetData
 public:
 	MaterialData() : AssetData( eAssetType::MATERIAL ) {}
 
+	[[nodiscard]] QVariant ToVariant() const override
+	{
+		QVariantMap map = this->ToVariantMap();
+		return map;
+	}
+
 	[[nodiscard]] static MaterialData* FromVariant( const QVariant& variant )
 	{
 		auto* data      = new MaterialData();
@@ -130,6 +164,12 @@ class AnimationData final : public AssetData
 {
 public:
 	AnimationData() : AssetData( eAssetType::ANIMATION ) {}
+
+	[[nodiscard]] QVariant ToVariant() const override
+	{
+		QVariantMap map = this->ToVariantMap();
+		return map;
+	}
 
 	[[nodiscard]] static AnimationData* FromVariant( const QVariant& variant )
 	{

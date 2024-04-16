@@ -11,7 +11,7 @@ ItemWidget::ItemWidget( const AssetData* assetData, QWidget* parent ) : ItemWidg
 	this->ui->itemLabel->setText( assetData->Path );
 }
 
-ItemWidget::ItemWidget( ModelData* modelData, QWidget* parent ) : ItemWidget( dynamic_cast < AssetData* >( modelData ), parent )
+ItemWidget::ItemWidget( ModelData* modelData, QWidget* parent ) : ItemWidget( AssetData::FromInheritance( modelData ), parent )
 {
 	if ( !modelData )
 		return;
@@ -19,7 +19,7 @@ ItemWidget::ItemWidget( ModelData* modelData, QWidget* parent ) : ItemWidget( dy
 	this->ui->itemTypeLabel->setText( "Model" );
 }
 
-ItemWidget::ItemWidget( UiImageData* uiImageData, QWidget* parent ) : ItemWidget( dynamic_cast < AssetData* >( uiImageData ), parent )
+ItemWidget::ItemWidget( UiImageData* uiImageData, QWidget* parent ) : ItemWidget( AssetData::FromInheritance( uiImageData ), parent )
 {
 	if ( !uiImageData )
 		return;
@@ -27,7 +27,7 @@ ItemWidget::ItemWidget( UiImageData* uiImageData, QWidget* parent ) : ItemWidget
 	this->ui->itemTypeLabel->setText( "UI Image" );
 }
 
-ItemWidget::ItemWidget( PatchData* patchData, QWidget* parent ) : ItemWidget( dynamic_cast < AssetData* >( patchData ), parent )
+ItemWidget::ItemWidget( PatchData* patchData, QWidget* parent ) : ItemWidget( AssetData::FromInheritance( patchData ), parent )
 {
 	if ( !patchData )
 		return;
@@ -35,7 +35,7 @@ ItemWidget::ItemWidget( PatchData* patchData, QWidget* parent ) : ItemWidget( dy
 	this->ui->itemTypeLabel->setText( "Patch" );
 }
 
-ItemWidget::ItemWidget( DataTableData* dataTableData, QWidget* parent ) : ItemWidget( dynamic_cast < AssetData* >( dataTableData ), parent )
+ItemWidget::ItemWidget( DataTableData* dataTableData, QWidget* parent ) : ItemWidget( AssetData::FromInheritance( dataTableData ), parent )
 {
 	if ( !dataTableData )
 		return;
@@ -43,7 +43,7 @@ ItemWidget::ItemWidget( DataTableData* dataTableData, QWidget* parent ) : ItemWi
 	this->ui->itemTypeLabel->setText( "Datatable" );
 }
 
-ItemWidget::ItemWidget( MaterialData* materialData, QWidget* parent ) : ItemWidget( dynamic_cast < AssetData* >( materialData ), parent )
+ItemWidget::ItemWidget( MaterialData* materialData, QWidget* parent ) : ItemWidget( AssetData::FromInheritance( materialData ), parent )
 {
 	if ( !materialData )
 		return;
@@ -51,7 +51,7 @@ ItemWidget::ItemWidget( MaterialData* materialData, QWidget* parent ) : ItemWidg
 	this->ui->itemTypeLabel->setText( "Material" );
 }
 
-ItemWidget::ItemWidget( AnimationData* animationData, QWidget* parent ) : ItemWidget( dynamic_cast < AssetData* >( animationData ), parent )
+ItemWidget::ItemWidget( AnimationData* animationData, QWidget* parent ) : ItemWidget( AssetData::FromInheritance( animationData ), parent )
 {
 	if ( !animationData )
 		return;
