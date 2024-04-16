@@ -2,10 +2,12 @@
 #include "repakgui.h"
 
 #include "../utils/utils.h"
+#include "../widgets/itemwidget.h"
 
 RePakGui::RePakGui( QWidget* parent ) : QMainWindow( parent ), ui( new Ui::RePakGuiClass() )
 {
 	ui->setupUi( this );
+	ui->assetLayout->setAlignment( Qt::AlignTop );
 
 	ui->gameTypeComboBox->clear();
 	for ( const QString& gameType : Utils::GameTypes.keys() )
@@ -24,16 +26,15 @@ RePakGui::RePakGui( QWidget* parent ) : QMainWindow( parent ), ui( new Ui::RePak
 	connect( ui->addRPakButton, &QPushButton::clicked, this, &RePakGui::AddRPak );
 	connect( ui->removeRPakButton, &QPushButton::clicked, this, &RePakGui::RemoveCurrentRPak );
 
+	connect( ui->addAssetButton, &QPushButton::clicked, this, &RePakGui::AddAsset );
+
 	connect( ui->rpakListWidget, &QListWidget::currentItemChanged, this, &RePakGui::OnRPakSelected );
 
 	connect( ui->resetRPakButton, &QPushButton::clicked, this, &RePakGui::ResetCurrentRPak );
 	connect( ui->saveRPakButton, &QPushButton::clicked, this, &RePakGui::SaveCurrentRPak );
 }
 
-RePakGui::~RePakGui()
-{
-	delete ui;
-}
+RePakGui::~RePakGui() { delete ui; }
 
 void RePakGui::closeEvent( QCloseEvent* event )
 {
@@ -66,7 +67,7 @@ void RePakGui::OnRPakSelected( const QListWidgetItem* item )
 {
 	if ( !item )
 	{
-		this->ClearRPakSettings();
+		this->ClearRPakData();
 		return;
 	}
 
@@ -83,7 +84,7 @@ void RePakGui::OnRPakSelected( const QListWidgetItem* item )
 
 	if ( !this->currentRPakData )
 	{
-		this->ClearRPakSettings();
+		this->ClearRPakData();
 		return;
 	}
 
@@ -94,8 +95,16 @@ void RePakGui::ResetCurrentRPak() const
 {
 	if ( !this->currentRPakData )
 	{
-		this->ClearRPakSettings();
+		this->ClearRPakData();
 		return;
+	}
+
+	QLayoutItem* item;
+	while ( ( item = ui->assetLayout->takeAt( 0 ) ) != nullptr )
+	{
+		if ( item->widget() )
+			delete item->widget();
+		delete item;
 	}
 
 	for ( const QString& gameType : Utils::GameTypes.keys() )
@@ -115,6 +124,102 @@ void RePakGui::ResetCurrentRPak() const
 	}
 
 	ui->keepDevOnlyCheckBox->setChecked( this->currentRPakData->KeepDevOnly );
+
+	for ( ModelData* modelData : this->currentRPakData->Models )
+	{
+		auto* modelWidget = new ItemWidget( modelData );
+		connect( modelWidget->GetDeleteButton(), &QPushButton::clicked, this, [ this, modelData ]
+		{
+			auto& materials = this->currentRPakData->Models;
+			if ( const auto it = std::find( materials.begin(), materials.end(), modelData ); it != materials.end() )
+			{
+				materials.erase( it );  // Delete From List
+				this->ResetCurrentRPak(); // Refresh Interface
+			}
+		} );
+		// TODO: Connect ModelWindow
+		ui->assetLayout->addWidget( modelWidget );
+	}
+
+	for ( UiImageData* uiImageData : this->currentRPakData->UiImages )
+	{
+		auto* uiImageWidget = new ItemWidget( uiImageData );
+		connect( uiImageWidget->GetDeleteButton(), &QPushButton::clicked, this, [ this, uiImageData ]
+		{
+			auto& materials = this->currentRPakData->UiImages;
+			if ( const auto it = std::find( materials.begin(), materials.end(), uiImageData ); it != materials.end() )
+			{
+				materials.erase( it );  // Delete From List
+				this->ResetCurrentRPak(); // Refresh Interface
+			}
+		} );
+		// TODO: Connect UiImageWindow
+		ui->assetLayout->addWidget( uiImageWidget );
+	}
+
+	for ( PatchData* patchData : this->currentRPakData->Patches )
+	{
+		auto* patchWidget = new ItemWidget( patchData );
+		connect( patchWidget->GetDeleteButton(), &QPushButton::clicked, this, [ this, patchData ]
+		{
+			auto& materials = this->currentRPakData->Patches;
+			if ( const auto it = std::find( materials.begin(), materials.end(), patchData ); it != materials.end() )
+			{
+				materials.erase( it );  // Delete From List
+				this->ResetCurrentRPak(); // Refresh Interface
+			}
+		} );
+		// TODO: Connect PatchWindow
+		ui->assetLayout->addWidget( patchWidget );
+	}
+
+	for ( DataTableData* dataTableData : this->currentRPakData->DataTables )
+	{
+		auto* dataTableWidget = new ItemWidget( dataTableData );
+		connect( dataTableWidget->GetDeleteButton(), &QPushButton::clicked, this, [ this, dataTableData ]
+		{
+			auto& materials = this->currentRPakData->DataTables;
+			if ( const auto it = std::find( materials.begin(), materials.end(), dataTableData ); it != materials.end() )
+			{
+				materials.erase( it );  // Delete From List
+				this->ResetCurrentRPak(); // Refresh Interface
+			}
+		} );
+		// TODO: Connect DataTableWindow
+		ui->assetLayout->addWidget( dataTableWidget );
+	}
+
+	for ( MaterialData* materialData : this->currentRPakData->Materials )
+	{
+		auto* materialWidget = new ItemWidget( materialData );
+		connect( materialWidget->GetDeleteButton(), &QPushButton::clicked, this, [ this, materialData ]
+		{
+			auto& materials = this->currentRPakData->Materials;
+			if ( const auto it = std::find( materials.begin(), materials.end(), materialData ); it != materials.end() )
+			{
+				materials.erase( it );  // Delete From List
+				this->ResetCurrentRPak(); // Refresh Interface
+			}
+		} );
+		// TODO: Connect MaterialWindow
+		ui->assetLayout->addWidget( materialWidget );
+	}
+
+	for ( AnimationData* animationData : this->currentRPakData->Animations )
+	{
+		auto* animationWidget = new ItemWidget( animationData );
+		connect( animationWidget->GetDeleteButton(), &QPushButton::clicked, this, [ this, animationData ]
+		{
+			auto& materials = this->currentRPakData->Animations;
+			if ( const auto it = std::find( materials.begin(), materials.end(), animationData ); it != materials.end() )
+			{
+				materials.erase( it );  // Delete From List
+				this->ResetCurrentRPak(); // Refresh Interface
+			}
+		} );
+		// TODO: Connect AnimationWindow
+		ui->assetLayout->addWidget( animationWidget );
+	}
 }
 
 void RePakGui::SaveCurrentRPak() const
@@ -192,7 +297,39 @@ void RePakGui::RemoveCurrentRPak()
 	this->LoadRPakList();
 }
 
-void RePakGui::ClearRPakSettings() const {}
+void RePakGui::AddAsset() const
+{
+	if ( !this->currentRPakData )
+	{
+		this->ClearRPakData();
+		return;
+	}
+
+	const QString assetType        = ui->assetComboBox->currentText();
+	const eAssetType enumAssetType = Utils::AssetTypes[ assetType ];
+
+	if ( enumAssetType == eAssetType::MODEL )
+		this->currentRPakData->Models.append( new ModelData() );
+
+	if ( enumAssetType == eAssetType::UI_IMAGE )
+		this->currentRPakData->UiImages.append( new UiImageData() );
+
+	if ( enumAssetType == eAssetType::PATCH )
+		this->currentRPakData->Patches.append( new PatchData() );
+
+	if ( enumAssetType == eAssetType::DATATABLE )
+		this->currentRPakData->DataTables.append( new DataTableData() );
+
+	if ( enumAssetType == eAssetType::MATERIAL )
+		this->currentRPakData->Materials.append( new MaterialData() );
+
+	if ( enumAssetType == eAssetType::ANIMATION )
+		this->currentRPakData->Animations.append( new AnimationData() );
+
+	this->ResetCurrentRPak();
+}
+
+void RePakGui::ClearRPakData() const {}
 
 void RePakGui::SaveRPakData() const
 {

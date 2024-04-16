@@ -1,6 +1,17 @@
 #pragma once
 #include "../public/textureslot.h"
 
+enum class eAssetType : int
+{
+	UNTYPED,
+	MODEL,
+	UI_IMAGE,
+	PATCH,
+	DATATABLE,
+	MATERIAL,
+	ANIMATION
+};
+
 namespace Utils
 {
 	inline QString CreateFolder( const QString& path, const bool addCurrentDir = true )
@@ -71,5 +82,28 @@ namespace Utils
 			names.push_back( slot.GetLocalizedName() );
 
 		return names;
+	}
+
+	inline QString GetAssetTypeString( const eAssetType type )
+	{
+		if ( type == eAssetType::MODEL )
+			return "rmdl";
+
+		if ( type == eAssetType::UI_IMAGE )
+			return "uimg";
+
+		if ( type == eAssetType::PATCH )
+			return "Ptch";
+
+		if ( type == eAssetType::DATATABLE )
+			return "dtbl";
+
+		if ( type == eAssetType::MATERIAL )
+			return "matl";
+
+		if ( type == eAssetType::ANIMATION )
+			return "rseq";
+
+		return "unknown";
 	}
 }

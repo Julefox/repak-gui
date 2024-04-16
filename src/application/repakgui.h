@@ -34,7 +34,8 @@ private:
 	void AddRPak();
 	void RemoveCurrentRPak();
 
-	void ClearRPakSettings() const;
+	void AddAsset() const;
 
+	void ClearRPakData() const;
 	void SaveRPakData() const;
 };
