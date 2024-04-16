@@ -113,6 +113,7 @@
     <ClCompile Include="widgets\itemwidget.cpp" />
     <ClInclude Include="public\assetdata.h" />
     <ClInclude Include="public\rpakdata.h" />
+    <ClInclude Include="public\textureslot.h" />
     <ClInclude Include="utils\utils.h" />
     <QtMoc Include="widgets\itemwidget.h" />
     <QtRcc Include="application\repakgui.qrc" />
