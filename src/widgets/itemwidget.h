@@ -13,6 +13,7 @@ QT_END_NAMESPACE class ItemWidget final : public QWidget
 {
 	Q_OBJECT public:
 	explicit ItemWidget( QWidget* parent = nullptr );
+	explicit ItemWidget( const AssetData* assetData, QWidget* parent = nullptr );
 
 	explicit ItemWidget( ModelData* modelData, QWidget* parent = nullptr );
 	explicit ItemWidget( UiImageData* uiImageData, QWidget* parent = nullptr );
@@ -28,6 +29,4 @@ QT_END_NAMESPACE class ItemWidget final : public QWidget
 
 private:
 	Ui::ItemWidgetClass* ui;
-
-	AssetData* assetData = nullptr;
 };

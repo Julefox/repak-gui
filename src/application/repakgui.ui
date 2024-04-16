@@ -20,7 +20,7 @@
    <string>RePak</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,1,0,0,0,0" columnstretch="1,0,0">
+   <layout class="QGridLayout" name="gridLayout" rowstretch="0,0,1,0,0,0" columnstretch="1,0,0">
     <property name="leftMargin">
      <number>4</number>
     </property>
@@ -329,7 +329,38 @@
         <number>4</number>
        </property>
        <item row="0" column="0">
-        <layout class="QVBoxLayout" name="assetLayout"/>
+        <widget class="QScrollArea" name="scrollArea">
+         <property name="horizontalScrollBarPolicy">
+          <enum>Qt::ScrollBarPolicy::ScrollBarAlwaysOff</enum>
+         </property>
+         <property name="widgetResizable">
+          <bool>true</bool>
+         </property>
+         <widget class="QWidget" name="scrollAreaWidgetContents">
+          <property name="geometry">
+           <rect>
+            <x>0</x>
+            <y>0</y>
+            <width>648</width>
+            <height>405</height>
+           </rect>
+          </property>
+          <layout class="QVBoxLayout" name="assetLayout">
+           <property name="leftMargin">
+            <number>4</number>
+           </property>
+           <property name="topMargin">
+            <number>4</number>
+           </property>
+           <property name="rightMargin">
+            <number>4</number>
+           </property>
+           <property name="bottomMargin">
+            <number>4</number>
+           </property>
+          </layout>
+         </widget>
+        </widget>
        </item>
       </layout>
      </widget>
