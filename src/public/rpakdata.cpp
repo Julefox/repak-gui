@@ -13,12 +13,6 @@ QVariant RPakData::ToVariant() const
 
 	QVariantList list;
 
-	for ( const TextureData* entry : this->Textures )
-		list.append( entry->ToVariant() );
-
-	map[ "textures" ] = list;
-	list.clear();
-
 	for ( const ModelData* entry : this->Models )
 		list.append( entry->ToVariant() );
 
@@ -69,12 +63,7 @@ RPakData* RPakData::FromVariant( const QVariant& variant )
 	data->OutputDirectory = map[ "output-directory" ].toString();
 	data->StarPakPath     = map[ "starpak-path" ].toString();
 
-	QVariantList list = map[ "textures" ].toList();
-
-	for ( const QVariant& entry : list )
-		data->Textures.append( TextureData::FromVariant( entry ) );
-
-	list = map[ "models" ].toList();
+	QVariantList list = map[ "models" ].toList();
 
 	for ( const QVariant& entry : list )
 		data->Models.append( ModelData::FromVariant( entry ) );

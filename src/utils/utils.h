@@ -18,7 +18,6 @@ namespace Utils
 	inline QMap < QString, int > GameTypes = { { "Titanfall 2", 7 }, { "Apex Legends", 8 } };
 
 	inline QMap < QString, eAssetType > AssetTypes = {
-		{ "Textures", eAssetType::TEXTURE },
 		{ "Models", eAssetType::MODEL },
 		{ "UI Images", eAssetType::UI_IMAGE },
 		{ "Patches", eAssetType::PATCH },
@@ -68,7 +67,7 @@ namespace Utils
 	inline QList < QString > GetLocalizedTextureSlotNames()
 	{
 		QList < QString > names;
-		for ( const auto& slot : TextureSlots )
+		for ( const TextureSlot& slot : TextureSlots )
 			names.push_back( slot.GetLocalizedName() );
 
 		return names;

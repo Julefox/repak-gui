@@ -3,8 +3,9 @@
 class TextureSlot
 {
 public:
+	TextureSlot() = default;
 	explicit TextureSlot( const QString& name, const QString& localizedName, const int id ) : name( name ), localizedName( localizedName ), textureId( id ) {}
-	~TextureSlot();
+	~TextureSlot() = default;
 
 	[[nodiscard]] const QString& GetName() const { return this->name; }
 

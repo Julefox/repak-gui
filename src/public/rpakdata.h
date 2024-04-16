@@ -16,7 +16,6 @@ public:
 	QString StarPakPath;
 
 	// All AssetData
-	QList < TextureData* > Textures     = {};
 	QList < ModelData* > Models         = {};
 	QList < UiImageData* > UiImages     = {};
 	QList < PatchData* > Patches        = {};

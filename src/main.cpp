@@ -17,7 +17,6 @@ int main( int argc, char* argv[ ] )
 
 	qRegisterMetaType < RPakData >( "RPakData" );
 	qRegisterMetaType < AssetData >( "AssetData" );
-	qRegisterMetaType < TextureData >( "TextureData" );
 	qRegisterMetaType < ModelData >( "ModelData" );
 	qRegisterMetaType < UiImageData >( "UiImageData" );
 	qRegisterMetaType < PatchData >( "PatchData" );

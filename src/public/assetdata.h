@@ -37,15 +37,9 @@ public:
 		return data;
 	}
 
-	[[nodiscard]] QString GetType() const
-	{
-		return this->type;
-	}
+	[[nodiscard]] QString GetType() const { return this->type; }
 
-	[[nodiscard]] eAssetType GetAssetType() const
-	{
-		return this->assetType;
-	}
+	[[nodiscard]] eAssetType GetAssetType() const { return this->assetType; }
 
 	QString Path;
 
@@ -55,24 +49,6 @@ private:
 };
 
 Q_DECLARE_METATYPE( AssetData )
-
-class TextureData final : public AssetData
-{
-public:
-	TextureData() : AssetData( "txtr", eAssetType::TEXTURE ) {}
-
-	[[nodiscard]] static TextureData* FromVariant( const QVariant& variant )
-	{
-		auto* data      = new TextureData();
-		QVariantMap map = variant.toMap();
-
-		data->Path = map[ "path" ].toString();
-
-		return data;
-	}
-};
-
-Q_DECLARE_METATYPE( TextureData )
 
 class ModelData final : public AssetData
 {
